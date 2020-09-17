@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xincl.dao.UserMapper">
+    <!--获取所有的用户-->
+    <select id="getUserList" resultType="com.xincl.pojo.User">
+            select * from test.user;
+        </select>
+    <!--根据用户ID进行获取用户信息-->
+    <select id="getUserid" parameterType="int" resultType="user">
+        select * from test.user where ID= #{id};
+    </select>
+    <!--根据用户ID或者用户名字进行模糊查询-->
+    <select id="getUser" parameterType="map" resultType="user">
+        select * from test.user where ID= #{id} or NAME like "%"#{name}"%";
+    </select>
+
+    <!--插入一个新用户-->
+    <insert id="insert" parameterType="user">
+        insert into test.user(ID,NAME,PASSWORD) values (#{ID},#{NAME},#{PASSWORD});
+    </insert>
+    
+    <!--插如一个用户，Map方法-->
+    <insert id="insert2" parameterType="map">
+        insert into test.user(ID,NAME,PASSWORD) values (#{id},#{name},#{password});
+    </insert>
+
+    <!--通过id,修改一个用户信息-->
+    <update id="update" parameterType="user">
+        update test.user set PASSWORD= #{PASSWORD} where ID= #{ID};
+    </update>
+
+    <!--通过id,修改一个用户信息,用map-->
+    <update id="update2" parameterType="map">
+        UPDATE test.user set PASSWORD= #{password} where ID= #{id};
+    </update>
+    <!--根据ID删除一个用户-->
+    <delete id="delete" parameterType="int">
+        delete from test.user where ID= #{id};
+    </delete>
+
+</mapper>
